@@ -429,6 +429,74 @@
   }
 
   /**
+   * Initialize cookie consent and analytics coordination
+   */
+  function initPrivacyModules() {
+    try {
+      if (typeof window.CookieConsent !== 'undefined') {
+        utils.log('Cookie consent module detected and ready');
+
+        document.addEventListener('cookieConsentUpdated', function(event) {
+          const preferences = event.detail;
+          utils.log(`Cookie preferences updated: ${JSON.stringify(preferences)}`);
+
+          if (typeof window.Analytics !== 'undefined') {
+            if (preferences.analytics) {
+              window.Analytics.enable();
+              utils.log('Analytics enabled via consent');
+            } else {
+              window.Analytics.disable();
+              utils.log('Analytics disabled via consent');
+            }
+          }
+        });
+
+        document.addEventListener('consentGranted', function(event) {
+          const detail = event.detail;
+          utils.log(`Consent granted: ${JSON.stringify(detail)}`);
+
+          if (detail.analytics && typeof window.Analytics !== 'undefined') {
+            window.Analytics.enable();
+          }
+        });
+
+        document.addEventListener('consentDenied', function(event) {
+          const detail = event.detail;
+          utils.log(`Consent denied: ${JSON.stringify(detail)}`);
+
+          if (typeof window.Analytics !== 'undefined') {
+            window.Analytics.disable();
+          }
+        });
+
+        utils.log('Cookie consent event listeners configured');
+      } else {
+        utils.log('Cookie consent module not found', 'warn');
+      }
+
+      if (typeof window.Analytics !== 'undefined') {
+        utils.log('Analytics module detected and ready');
+
+        const hasConsent = typeof window.CookieConsent !== 'undefined' ?
+          window.CookieConsent.hasConsent() : false;
+
+        if (hasConsent) {
+          const prefs = window.CookieConsent.getPreferences();
+          if (prefs && prefs.analytics) {
+            utils.log('Existing analytics consent found');
+          }
+        } else {
+          utils.log('No analytics consent found - waiting for user action');
+        }
+      } else {
+        utils.log('Analytics module not found', 'warn');
+      }
+    } catch (error) {
+      utils.log(`Error initializing privacy modules: ${error.message}`, 'error');
+    }
+  }
+
+  /**
    * Wait for other modules to load
    * @param {number} maxWait - Maximum wait time in milliseconds
    * @returns {Promise}
@@ -441,15 +509,19 @@
         const animationsReady = typeof window.ScrollAnimations !== 'undefined';
         const interactionsReady = typeof window.Interactions !== 'undefined';
         const lazyLoadingReady = typeof window.LazyLoading !== 'undefined';
+        const cookieConsentReady = typeof window.CookieConsent !== 'undefined';
+        const analyticsReady = typeof window.Analytics !== 'undefined';
 
-        if (animationsReady && interactionsReady && lazyLoadingReady) {
-          utils.log('All modules loaded successfully (animations, interactions, lazy-loading)');
+        if (animationsReady && interactionsReady && lazyLoadingReady && cookieConsentReady && analyticsReady) {
+          utils.log('All modules loaded successfully (animations, interactions, lazy-loading, cookie-consent, analytics)');
           resolve(true);
         } else if (Date.now() - startTime > maxWait) {
           const missing = [];
           if (!animationsReady) missing.push('animations');
           if (!interactionsReady) missing.push('interactions');
           if (!lazyLoadingReady) missing.push('lazy-loading');
+          if (!cookieConsentReady) missing.push('cookie-consent');
+          if (!analyticsReady) missing.push('analytics');
           utils.log(`Module loading timeout - missing: ${missing.join(', ')}`, 'warn');
           resolve(false);
         } else {
@@ -487,6 +559,8 @@
       initReducedMotionListener();
 
       await waitForModules();
+
+      initPrivacyModules();
 
       if (typeof performance !== 'undefined' && performance.mark && performance.measure) {
         performance.mark('init-end');

@@ -65,8 +65,105 @@
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.9",
-      "reviewCount": "127"
-    }
+      "reviewCount": "127",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Massage Therapy Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Swedish Massage",
+            "description": "Classic massage technique using gentle, flowing strokes for relaxation and improved circulation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Deep Tissue Massage",
+            "description": "Intensive therapeutic massage targeting chronic pain and muscle tension"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Hot Stone Massage",
+            "description": "Therapeutic massage enhanced with heated basalt stones for deep relaxation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Prenatal Massage",
+            "description": "Specialized massage therapy for expecting mothers to reduce pregnancy-related discomfort"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Aromatherapy Massage",
+            "description": "Swedish massage enhanced with therapeutic-grade essential oils"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Sports Massage",
+            "description": "Performance-focused massage for athletes and active individuals"
+          }
+        }
+      ]
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Sarah Mitchell"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": "The deep tissue massage completely relieved my chronic back pain that I had been dealing with for years."
+      },
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Michael Chen"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": "As a marathon runner, the sports massage has been a game changer for my recovery and performance."
+      },
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Emily Rodriguez"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": "The prenatal massage during my pregnancy was incredibly soothing and helped relieve so much discomfort."
+      }
+    ]
   }
   </script>
 </head>
@@ -751,6 +848,8 @@
   </footer>
 
   <script src="scripts/lazy-loading.js" defer></script>
+  <script src="scripts/cookie-consent.js" defer></script>
+  <script src="scripts/analytics.js" defer></script>
   <script src="scripts/main.js" defer></script>
   <script src="scripts/animations.js" defer></script>
   <script src="scripts/interactions.js" defer></script>
