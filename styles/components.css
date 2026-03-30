@@ -145,24 +145,23 @@
 }
 
 /* ========================================================================
-   Hero Section
+   Hero Section - Two Variants
    ======================================================================== */
 
+/* Base Hero Styles */
 .hero {
   min-height: 90vh;
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, var(--color-sage-50) 0%, var(--color-blue-50) 100%);
-  padding: var(--space-4xl) 0;
+  padding: var(--space-4xl) var(--space-lg);
 }
 
 .hero-content {
   position: relative;
   z-index: 1;
-  max-width: 800px;
-  text-align: center;
+  width: 100%;
 }
 
 .hero-heading {
@@ -175,45 +174,154 @@
   color: var(--color-text-secondary);
   margin-bottom: var(--space-2xl);
   line-height: var(--line-height-relaxed);
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .hero-cta {
   display: flex;
   gap: var(--space-md);
   flex-wrap: wrap;
+}
+
+/* ========================================================================
+   Hero Variant 1: Image Background (Full-Width Overlay)
+   ======================================================================== */
+
+.hero-variant-1 {
+  background: linear-gradient(135deg, var(--color-sage-50) 0%, var(--color-blue-50) 100%);
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-variant-1 .hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-variant-1 .hero-subheading {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: var(--space-2xl);
+}
+
+.hero-variant-1 .hero-cta {
   justify-content: center;
 }
 
-.hero-image {
+.hero-variant-1 .hero-image-bg {
   position: absolute;
   top: 0;
-  right: 0;
-  width: 50%;
+  left: 0;
+  width: 100%;
   height: 100%;
-  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%237CB342" opacity="0.1"/></svg>');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.3;
-  pointer-events: none;
+  object-fit: cover;
+  z-index: 0;
 }
 
+/* Dark overlay for better text readability */
+.hero-variant-1::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(115, 147, 179, 0.85) 0%, rgba(124, 179, 66, 0.75) 100%);
+  z-index: 0;
+}
+
+.hero-variant-1 .hero-heading,
+.hero-variant-1 .hero-subheading {
+  color: var(--color-white);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================================================================
+   Hero Variant 2: Split Layout (Content Left, Image Right)
+   ======================================================================== */
+
+.hero-variant-2 {
+  background-color: var(--color-surface);
+  padding: var(--space-3xl) var(--space-lg);
+}
+
+.hero-variant-2 .hero-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+  max-width: var(--container-xl);
+  margin: 0 auto;
+}
+
+.hero-variant-2 .hero-text {
+  order: 2;
+}
+
+.hero-variant-2 .hero-image-container {
+  order: 1;
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+
+.hero-variant-2 .hero-image-main {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-variant-2 .hero-heading {
+  color: var(--color-text);
+}
+
+.hero-variant-2 .hero-subheading {
+  color: var(--color-text-secondary);
+}
+
+.hero-variant-2 .hero-cta {
+  justify-content: flex-start;
+}
+
+/* Tablet and Desktop Adjustments */
 @media (min-width: 768px) {
-  .hero-content {
-    text-align: left;
+  .hero {
+    padding: var(--space-4xl) var(--space-2xl);
   }
 
-  .hero-cta {
-    justify-content: flex-start;
+  .hero-variant-1 .hero-cta {
     gap: var(--space-lg);
+  }
+
+  .hero-variant-2 .hero-content {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4xl);
+  }
+
+  .hero-variant-2 .hero-text {
+    order: 1;
+  }
+
+  .hero-variant-2 .hero-image-container {
+    order: 2;
+    height: 500px;
   }
 }
 
 @media (min-width: 1200px) {
   .hero {
     min-height: 80vh;
+  }
+
+  .hero-variant-2 .hero-content {
+    gap: var(--space-5xl);
+  }
+
+  .hero-variant-2 .hero-image-container {
+    height: 600px;
   }
 }
 
