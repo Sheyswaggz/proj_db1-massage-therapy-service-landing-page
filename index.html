@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Professional massage therapy services for relaxation, pain relief, and wellness. Expert therapists offering Swedish, deep tissue, sports massage, and more.">
-  <meta name="keywords" content="massage therapy, wellness, relaxation, pain relief, deep tissue massage, Swedish massage, sports massage">
+  <meta name="description" content="Professional massage therapy services for relaxation, pain relief, and wellness. Expert therapists offering Swedish, deep tissue, hot stone, prenatal massage, and more.">
+  <meta name="keywords" content="massage therapy, wellness, relaxation, pain relief, deep tissue massage, Swedish massage, hot stone massage, prenatal massage, aromatherapy massage">
 
   <title>Professional Massage Therapy Services | Wellness & Relaxation</title>
 
@@ -29,7 +29,7 @@
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Professional Massage Therapy Services",
-    "description": "Professional massage therapy services offering Swedish, deep tissue, sports massage, and therapeutic treatments for wellness and relaxation.",
+    "description": "Professional massage therapy services offering Swedish, deep tissue, hot stone, prenatal massage, and therapeutic treatments for wellness and relaxation.",
     "image": "https://example.com/logo.jpg",
     "address": {
       "@type": "PostalAddress",
@@ -98,37 +98,71 @@
 
   <main id="main" role="main">
     <section class="hero" aria-labelledby="hero-heading">
+      <img
+        class="hero-image-bg"
+        data-src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1920&q=80"
+        data-srcset="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=768&q=80 768w,
+                     https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1280&q=80 1280w,
+                     https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1920&q=80 1920w"
+        sizes="100vw"
+        alt="Serene spa environment with massage stones and candles"
+        loading="eager"
+        width="1920"
+        height="1080"
+        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.4; z-index: -1;"
+      >
       <div class="hero-content">
         <h1 id="hero-heading" class="hero-heading">Experience Healing Through Touch</h1>
-        <p class="hero-subheading">Professional massage therapy for relaxation, pain relief, and wellness</p>
+        <p class="hero-subheading">Professional massage therapy tailored to your wellness needs. Certified therapists with over 15 years of experience in therapeutic massage, pain management, and relaxation techniques.</p>
         <div class="hero-cta">
-          <a href="#contact" class="btn btn-primary">Book Your Session</a>
-          <a href="#services" class="btn btn-secondary">View Services</a>
+          <a href="#contact" class="btn btn-primary">Book Your Session Today</a>
+          <a href="#services" class="btn btn-secondary">Explore Our Services</a>
         </div>
       </div>
-      <div class="hero-image" role="img" aria-label="Relaxing spa environment"></div>
     </section>
 
     <section class="services" id="services" aria-labelledby="services-heading">
       <div class="container">
         <header class="section-header">
-          <h2 id="services-heading" class="section-title">Our Services</h2>
-          <p class="section-description">Choose from our range of therapeutic massage treatments</p>
+          <h2 id="services-heading" class="section-title">Our Massage Therapy Services</h2>
+          <p class="section-description">Comprehensive therapeutic treatments designed to restore balance, relieve tension, and promote overall wellness</p>
         </header>
 
         <div class="services-grid">
           <article class="service-card" data-reveal>
+            <img
+              class="service-image"
+              data-src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80"
+              alt="Swedish massage therapy session with relaxing oils"
+              loading="lazy"
+              width="600"
+              height="400"
+            >
             <div class="service-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 2v20M2 12h20"></path>
               </svg>
             </div>
             <h3 class="service-title">Swedish Massage</h3>
-            <p class="service-description">Gentle, relaxing massage using long strokes and kneading to promote relaxation and improve circulation.</p>
-            <p class="service-price">Starting at $80 / 60 min</p>
+            <p class="service-description">The classic massage technique using gentle, flowing strokes combined with kneading and circular movements. Perfect for relaxation and improving circulation. Ideal for first-time massage clients and those seeking overall stress relief.</p>
+            <ul class="service-benefits">
+              <li>Promotes deep relaxation</li>
+              <li>Improves blood circulation</li>
+              <li>Reduces muscle tension</li>
+              <li>Enhances flexibility</li>
+            </ul>
+            <p class="service-price">$80 / 60 min | $110 / 90 min</p>
           </article>
 
           <article class="service-card" data-reveal>
+            <img
+              class="service-image"
+              data-src="https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=600&q=80"
+              alt="Deep tissue massage targeting muscle tension"
+              loading="lazy"
+              width="600"
+              height="400"
+            >
             <div class="service-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="12" cy="12" r="10"></circle>
@@ -136,55 +170,117 @@
               </svg>
             </div>
             <h3 class="service-title">Deep Tissue Massage</h3>
-            <p class="service-description">Targeted pressure to release chronic muscle tension and knots in deeper layers of muscle tissue.</p>
-            <p class="service-price">Starting at $95 / 60 min</p>
+            <p class="service-description">Intensive therapeutic massage using firm pressure and slow strokes to reach deeper layers of muscle and fascia. Specifically designed to address chronic pain, muscle injuries, and persistent tension areas. May cause temporary soreness.</p>
+            <ul class="service-benefits">
+              <li>Relieves chronic pain</li>
+              <li>Breaks up scar tissue</li>
+              <li>Treats sports injuries</li>
+              <li>Improves posture</li>
+            </ul>
+            <p class="service-price">$95 / 60 min | $135 / 90 min</p>
           </article>
 
           <article class="service-card" data-reveal>
+            <img
+              class="service-image"
+              data-src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=600&q=80"
+              alt="Hot stone massage with heated basalt stones"
+              loading="lazy"
+              width="600"
+              height="400"
+            >
             <div class="service-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
               </svg>
             </div>
-            <h3 class="service-title">Sports Massage</h3>
-            <p class="service-description">Performance-focused massage to prevent injuries, enhance flexibility, and speed recovery for athletes.</p>
-            <p class="service-price">Starting at $100 / 60 min</p>
+            <h3 class="service-title">Hot Stone Massage</h3>
+            <p class="service-description">Therapeutic massage enhanced with smooth, heated basalt stones placed on key points of the body. The heat penetrates deep into muscles, allowing for a uniquely relaxing experience. Combines thermotherapy with traditional massage techniques.</p>
+            <ul class="service-benefits">
+              <li>Melts away tension</li>
+              <li>Improves sleep quality</li>
+              <li>Boosts immune system</li>
+              <li>Alleviates chronic pain</li>
+            </ul>
+            <p class="service-price">$110 / 75 min | $145 / 90 min</p>
           </article>
 
           <article class="service-card" data-reveal>
+            <img
+              class="service-image"
+              data-src="https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=600&q=80"
+              alt="Prenatal massage for expecting mothers"
+              loading="lazy"
+              width="600"
+              height="400"
+            >
             <div class="service-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
               </svg>
             </div>
-            <h3 class="service-title">Hot Stone Therapy</h3>
-            <p class="service-description">Heated stones combined with massage techniques to melt away tension and promote deep relaxation.</p>
-            <p class="service-price">Starting at $110 / 75 min</p>
+            <h3 class="service-title">Prenatal Massage</h3>
+            <p class="service-description">Specialized massage therapy tailored for expecting mothers, designed to reduce pregnancy-related discomfort and promote relaxation. Uses side-lying positions and pregnancy-safe techniques. Safe during all trimesters with doctor approval.</p>
+            <ul class="service-benefits">
+              <li>Reduces back and leg pain</li>
+              <li>Decreases swelling</li>
+              <li>Improves sleep</li>
+              <li>Reduces anxiety</li>
+            </ul>
+            <p class="service-price">$90 / 60 min | $125 / 90 min</p>
           </article>
 
           <article class="service-card" data-reveal>
+            <img
+              class="service-image"
+              data-src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&q=80"
+              alt="Aromatherapy massage with essential oils"
+              loading="lazy"
+              width="600"
+              height="400"
+            >
             <div class="service-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M9 11l3 3L22 4"></path>
                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
               </svg>
             </div>
-            <h3 class="service-title">Prenatal Massage</h3>
-            <p class="service-description">Specialized massage for expecting mothers to reduce pregnancy discomfort and promote relaxation.</p>
-            <p class="service-price">Starting at $90 / 60 min</p>
+            <h3 class="service-title">Aromatherapy Massage</h3>
+            <p class="service-description">Swedish massage techniques enhanced with therapeutic-grade essential oils selected for your specific wellness goals. Choose from lavender (relaxation), eucalyptus (respiratory), peppermint (energy), or custom blends.</p>
+            <ul class="service-benefits">
+              <li>Enhances relaxation</li>
+              <li>Elevates mood</li>
+              <li>Reduces stress hormones</li>
+              <li>Provides aromatherapy benefits</li>
+            </ul>
+            <p class="service-price">$105 / 60 min | $140 / 90 min</p>
           </article>
 
           <article class="service-card" data-reveal>
+            <img
+              class="service-image"
+              data-src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80"
+              alt="Sports massage for athletic recovery"
+              loading="lazy"
+              width="600"
+              height="400"
+            >
             <div class="service-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
                 <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
               </svg>
             </div>
-            <h3 class="service-title">Aromatherapy Massage</h3>
-            <p class="service-description">Combines massage with essential oils to enhance relaxation and address specific wellness goals.</p>
-            <p class="service-price">Starting at $105 / 60 min</p>
+            <h3 class="service-title">Sports Massage</h3>
+            <p class="service-description">Performance-focused massage therapy designed for athletes and active individuals. Combines techniques to prevent injuries, enhance flexibility, speed recovery, and improve athletic performance. Can be customized for pre-event or post-event needs.</p>
+            <ul class="service-benefits">
+              <li>Prevents injuries</li>
+              <li>Speeds recovery</li>
+              <li>Enhances flexibility</li>
+              <li>Improves performance</li>
+            </ul>
+            <p class="service-price">$100 / 60 min | $140 / 90 min</p>
           </article>
         </div>
       </div>
@@ -194,14 +290,32 @@
       <div class="container">
         <div class="about-content">
           <div class="about-image" data-reveal>
-            <div class="about-image-placeholder" role="img" aria-label="Professional massage therapist"></div>
+            <img
+              data-src="https://images.unsplash.com/photo-1591343395902-ad92030c8d8f?w=800&q=80"
+              alt="Professional licensed massage therapist in serene treatment room"
+              loading="lazy"
+              width="800"
+              height="600"
+              class="about-image-photo"
+            >
           </div>
 
           <div class="about-text" data-reveal>
             <header>
               <h2 id="about-heading" class="section-title">About Our Practice</h2>
             </header>
-            <p class="about-description">With over 15 years of experience, our certified massage therapists are dedicated to helping you achieve optimal wellness through the healing power of touch.</p>
+            <p class="about-description">With over 15 years of combined experience, our team of certified and licensed massage therapists is dedicated to helping you achieve optimal wellness through the healing power of therapeutic touch. We believe in a holistic approach to health and wellbeing.</p>
+
+            <div class="about-credentials">
+              <h3 class="credentials-title">Our Qualifications</h3>
+              <ul class="credentials-list">
+                <li>Licensed Massage Therapists (LMT)</li>
+                <li>Certified by American Massage Therapy Association (AMTA)</li>
+                <li>500+ hours of advanced training</li>
+                <li>Continuing education in specialized techniques</li>
+                <li>Liability insurance and professional standards</li>
+              </ul>
+            </div>
 
             <div class="about-features">
               <div class="feature-item">
@@ -238,7 +352,7 @@
             </div>
 
             <div class="about-cta">
-              <a href="#contact" class="btn btn-primary">Schedule Consultation</a>
+              <a href="#contact" class="btn btn-primary">Schedule Your Consultation</a>
             </div>
           </div>
         </div>
@@ -249,7 +363,7 @@
       <div class="container">
         <header class="section-header">
           <h2 id="testimonials-heading" class="section-title">What Our Clients Say</h2>
-          <p class="section-description">Real experiences from satisfied clients</p>
+          <p class="section-description">Real experiences from satisfied clients who have experienced transformative results</p>
         </header>
 
         <div class="testimonials-grid">
@@ -272,13 +386,21 @@
               </svg>
             </div>
             <blockquote class="testimonial-text">
-              <p>"The deep tissue massage completely relieved my chronic back pain. The therapist was professional, knowledgeable, and created a truly relaxing atmosphere. Highly recommended!"</p>
+              <p>"The deep tissue massage completely relieved my chronic back pain that I had been dealing with for years. The therapist was professional, knowledgeable, and created a truly relaxing atmosphere. I've been coming back monthly ever since. Highly recommended!"</p>
             </blockquote>
             <footer class="testimonial-author">
-              <div class="author-avatar" role="img" aria-label="Client photo"></div>
+              <img
+                class="author-avatar"
+                data-src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80"
+                alt="Sarah Mitchell"
+                loading="lazy"
+                width="60"
+                height="60"
+              >
               <div class="author-info">
                 <cite class="author-name">Sarah Mitchell</cite>
-                <p class="author-detail">Regular Client</p>
+                <p class="author-detail">Regular Client Since 2022</p>
+                <p class="author-treatment">Deep Tissue Massage</p>
               </div>
             </footer>
           </article>
@@ -302,13 +424,21 @@
               </svg>
             </div>
             <blockquote class="testimonial-text">
-              <p>"As a marathon runner, the sports massage has been a game changer for my recovery. The therapist understands athletic needs and delivers results every time."</p>
+              <p>"As a marathon runner, the sports massage has been a game changer for my recovery and performance. The therapist understands athletic needs perfectly and delivers results every single time. I schedule my sessions around my race calendar now."</p>
             </blockquote>
             <footer class="testimonial-author">
-              <div class="author-avatar" role="img" aria-label="Client photo"></div>
+              <img
+                class="author-avatar"
+                data-src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80"
+                alt="Michael Chen"
+                loading="lazy"
+                width="60"
+                height="60"
+              >
               <div class="author-info">
                 <cite class="author-name">Michael Chen</cite>
-                <p class="author-detail">Athlete</p>
+                <p class="author-detail">Marathon Runner & Athlete</p>
+                <p class="author-treatment">Sports Massage</p>
               </div>
             </footer>
           </article>
@@ -332,16 +462,81 @@
               </svg>
             </div>
             <blockquote class="testimonial-text">
-              <p>"The prenatal massage during my pregnancy was incredibly soothing. The therapist made me feel comfortable and safe throughout the session. A wonderful experience!"</p>
+              <p>"The prenatal massage during my pregnancy was incredibly soothing and helped relieve so much discomfort. The therapist made me feel comfortable and safe throughout every session. This was an essential part of my pregnancy wellness routine. A wonderful experience!"</p>
             </blockquote>
             <footer class="testimonial-author">
-              <div class="author-avatar" role="img" aria-label="Client photo"></div>
+              <img
+                class="author-avatar"
+                data-src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&q=80"
+                alt="Emily Rodriguez"
+                loading="lazy"
+                width="60"
+                height="60"
+              >
               <div class="author-info">
                 <cite class="author-name">Emily Rodriguez</cite>
                 <p class="author-detail">Expecting Mother</p>
+                <p class="author-treatment">Prenatal Massage</p>
               </div>
             </footer>
           </article>
+
+          <article class="testimonial-card" data-reveal>
+            <div class="testimonial-rating" aria-label="5 out of 5 stars">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </div>
+            <blockquote class="testimonial-text">
+              <p>"The hot stone massage is pure bliss! The combination of heat and massage technique melted away tension I didn't even know I had. The ambiance and professionalism made it a perfect escape from daily stress. I gift certificates to friends now!"</p>
+            </blockquote>
+            <footer class="testimonial-author">
+              <img
+                class="author-avatar"
+                data-src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80"
+                alt="Jennifer Thompson"
+                loading="lazy"
+                width="60"
+                height="60"
+              >
+              <div class="author-info">
+                <cite class="author-name">Jennifer Thompson</cite>
+                <p class="author-detail">Monthly Wellness Member</p>
+                <p class="author-treatment">Hot Stone Massage</p>
+              </div>
+            </footer>
+          </article>
+        </div>
+
+        <div class="testimonials-stats" data-reveal>
+          <div class="stat-item">
+            <p class="stat-number">4.9</p>
+            <p class="stat-label">Average Rating</p>
+          </div>
+          <div class="stat-item">
+            <p class="stat-number">127+</p>
+            <p class="stat-label">Five-Star Reviews</p>
+          </div>
+          <div class="stat-item">
+            <p class="stat-number">95%</p>
+            <p class="stat-label">Client Retention</p>
+          </div>
+          <div class="stat-item">
+            <p class="stat-number">2,500+</p>
+            <p class="stat-label">Sessions Completed</p>
+          </div>
         </div>
       </div>
     </section>
@@ -352,7 +547,7 @@
           <div class="contact-info" data-reveal>
             <header>
               <h2 id="contact-heading" class="section-title">Get In Touch</h2>
-              <p class="section-description">Book your appointment or ask us a question</p>
+              <p class="section-description">Book your appointment or ask us a question. We're here to help you on your wellness journey.</p>
             </header>
 
             <div class="contact-details">
@@ -363,7 +558,7 @@
                 </svg>
                 <div class="contact-text">
                   <h3 class="contact-label">Location</h3>
-                  <p class="contact-value">123 Wellness Street<br>Your City, State 12345</p>
+                  <p class="contact-value">123 Wellness Street<br>Your City, State 12345<br>Convenient parking available</p>
                 </div>
               </div>
 
@@ -373,7 +568,7 @@
                 </svg>
                 <div class="contact-text">
                   <h3 class="contact-label">Phone</h3>
-                  <p class="contact-value"><a href="tel:+15551234567">+1 (555) 123-4567</a></p>
+                  <p class="contact-value"><a href="tel:+15551234567">+1 (555) 123-4567</a><br>Call or text for appointments</p>
                 </div>
               </div>
 
@@ -384,7 +579,7 @@
                 </svg>
                 <div class="contact-text">
                   <h3 class="contact-label">Email</h3>
-                  <p class="contact-value"><a href="mailto:info@massagetherapy.com">info@massagetherapy.com</a></p>
+                  <p class="contact-value"><a href="mailto:info@massagetherapy.com">info@massagetherapy.com</a><br>We respond within 24 hours</p>
                 </div>
               </div>
 
@@ -394,8 +589,8 @@
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
                 <div class="contact-text">
-                  <h3 class="contact-label">Hours</h3>
-                  <p class="contact-value">Mon-Fri: 9am - 7pm<br>Sat: 10am - 5pm<br>Sun: Closed</p>
+                  <h3 class="contact-label">Business Hours</h3>
+                  <p class="contact-value">Monday - Friday: 9:00 AM - 7:00 PM<br>Saturday: 10:00 AM - 5:00 PM<br>Sunday: Closed<br><em>Extended hours by appointment</em></p>
                 </div>
               </div>
             </div>
@@ -450,10 +645,10 @@
                 <option value="">Select a service</option>
                 <option value="swedish">Swedish Massage</option>
                 <option value="deep-tissue">Deep Tissue Massage</option>
-                <option value="sports">Sports Massage</option>
                 <option value="hot-stone">Hot Stone Therapy</option>
                 <option value="prenatal">Prenatal Massage</option>
                 <option value="aromatherapy">Aromatherapy Massage</option>
+                <option value="sports">Sports Massage</option>
               </select>
             </div>
 
@@ -466,6 +661,7 @@
                 rows="5"
                 required
                 aria-required="true"
+                placeholder="Tell us about your wellness goals or any specific concerns..."
               ></textarea>
               <span class="form-error" role="alert"></span>
             </div>
@@ -487,7 +683,7 @@
       <div class="footer-content">
         <div class="footer-section">
           <h3 class="footer-heading">Massage Therapy</h3>
-          <p class="footer-text">Professional massage therapy services for wellness, relaxation, and pain relief.</p>
+          <p class="footer-text">Professional massage therapy services for wellness, relaxation, and pain relief. Certified therapists with over 15 years of experience.</p>
           <div class="footer-social">
             <a href="#" class="social-link" aria-label="Facebook">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -526,8 +722,10 @@
           <ul class="footer-links" role="list">
             <li><a href="#services" class="footer-link">Swedish Massage</a></li>
             <li><a href="#services" class="footer-link">Deep Tissue</a></li>
-            <li><a href="#services" class="footer-link">Sports Massage</a></li>
             <li><a href="#services" class="footer-link">Hot Stone Therapy</a></li>
+            <li><a href="#services" class="footer-link">Prenatal Massage</a></li>
+            <li><a href="#services" class="footer-link">Aromatherapy</a></li>
+            <li><a href="#services" class="footer-link">Sports Massage</a></li>
           </ul>
         </div>
 
@@ -552,6 +750,7 @@
     </div>
   </footer>
 
+  <script src="scripts/lazy-loading.js" defer></script>
   <script src="scripts/main.js" defer></script>
   <script src="scripts/animations.js" defer></script>
   <script src="scripts/interactions.js" defer></script>

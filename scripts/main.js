@@ -221,49 +221,91 @@
   }
 
   /**
-   * Initialize lazy loading for images using Intersection Observer
+   * Initialize lazy loading module coordination
    */
   function initLazyLoading() {
-    if (!config.features.intersectionObserver) {
-      utils.log('IntersectionObserver not supported - skipping lazy loading', 'warn');
-      return;
-    }
-
     try {
-      const lazyImages = utils.safeQuerySelectorAll('img[data-src]');
+      if (typeof window.LazyLoading !== 'undefined') {
+        utils.log('Lazy loading module detected and ready');
 
-      if (lazyImages.length === 0) {
-        return;
-      }
+        document.addEventListener('lazyLoadingReady', function(event) {
+          const detail = event.detail;
+          utils.log(`Lazy loading ready - WebP: ${detail.supportsWebP}, Images: ${detail.imageCount}`);
 
-      const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-
-            if (img.dataset.src) {
-              img.src = img.dataset.src;
-              img.removeAttribute('data-src');
-            }
-
-            if (img.dataset.srcset) {
-              img.srcset = img.dataset.srcset;
-              img.removeAttribute('data-srcset');
-            }
-
-            img.classList.add('lazy-loaded');
-            imageObserver.unobserve(img);
-
-            utils.log(`Lazy loaded image: ${img.src}`);
+          if (config.features.customEvents) {
+            document.dispatchEvent(new CustomEvent('imagesInitialized', {
+              detail: {
+                count: detail.imageCount,
+                webpSupport: detail.supportsWebP
+              }
+            }));
           }
         });
-      }, {
-        rootMargin: '50px 0px',
-        threshold: 0.01
-      });
 
-      lazyImages.forEach(img => imageObserver.observe(img));
-      utils.log(`Initialized lazy loading for ${lazyImages.length} images`);
+        document.addEventListener('lazyload', function(event) {
+          const img = event.target;
+
+          if (img && img.parentElement) {
+            const parentRect = img.parentElement.getBoundingClientRect();
+            if (parentRect.height === 0) {
+              img.parentElement.style.minHeight = 'auto';
+            }
+          }
+
+          utils.log(`Image loaded: ${event.detail.src}`);
+        });
+
+        document.addEventListener('layoutstable', function() {
+          if (typeof window.ScrollAnimations !== 'undefined' &&
+              typeof window.ScrollAnimations.refresh === 'function') {
+            window.ScrollAnimations.refresh();
+          }
+        });
+
+        utils.log('Lazy loading event listeners configured');
+      } else {
+        utils.log('Lazy loading module not found - using fallback', 'warn');
+
+        if (!config.features.intersectionObserver) {
+          utils.log('IntersectionObserver not supported - skipping lazy loading', 'warn');
+          return;
+        }
+
+        const lazyImages = utils.safeQuerySelectorAll('img[data-src]');
+
+        if (lazyImages.length === 0) {
+          return;
+        }
+
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+
+              if (img.dataset.src) {
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+              }
+
+              if (img.dataset.srcset) {
+                img.srcset = img.dataset.srcset;
+                img.removeAttribute('data-srcset');
+              }
+
+              img.classList.add('lazy-loaded');
+              imageObserver.unobserve(img);
+
+              utils.log(`Lazy loaded image: ${img.src}`);
+            }
+          });
+        }, {
+          rootMargin: '50px 0px',
+          threshold: 0.01
+        });
+
+        lazyImages.forEach(img => imageObserver.observe(img));
+        utils.log(`Initialized fallback lazy loading for ${lazyImages.length} images`);
+      }
     } catch (error) {
       utils.log(`Error initializing lazy loading: ${error.message}`, 'error');
     }
@@ -398,12 +440,17 @@
       const checkModules = () => {
         const animationsReady = typeof window.ScrollAnimations !== 'undefined';
         const interactionsReady = typeof window.Interactions !== 'undefined';
+        const lazyLoadingReady = typeof window.LazyLoading !== 'undefined';
 
-        if (animationsReady && interactionsReady) {
-          utils.log('All modules loaded successfully');
+        if (animationsReady && interactionsReady && lazyLoadingReady) {
+          utils.log('All modules loaded successfully (animations, interactions, lazy-loading)');
           resolve(true);
         } else if (Date.now() - startTime > maxWait) {
-          utils.log('Module loading timeout - some modules may not be available', 'warn');
+          const missing = [];
+          if (!animationsReady) missing.push('animations');
+          if (!interactionsReady) missing.push('interactions');
+          if (!lazyLoadingReady) missing.push('lazy-loading');
+          utils.log(`Module loading timeout - missing: ${missing.join(', ')}`, 'warn');
           resolve(false);
         } else {
           setTimeout(checkModules, 100);
