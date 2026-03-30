@@ -1,6 +1,7 @@
 /**
  * Main JavaScript Module - Massage Therapy Landing Page
  * Handles core initialization and module coordination
+ * Coordinates animations.js and interactions.js modules
  */
 
 (function() {
@@ -17,6 +18,11 @@
       md: 768,
       lg: 1024,
       xl: 1280
+    },
+    features: {
+      intersectionObserver: 'IntersectionObserver' in window,
+      performanceObserver: 'PerformanceObserver' in window,
+      customEvents: typeof CustomEvent !== 'undefined'
     }
   };
 
@@ -38,7 +44,7 @@
      * @returns {boolean}
      */
     isAboveBreakpoint(breakpoint) {
-      return this.getViewportWidth() >= config.breakpoints[breakpoint];
+      return this.getViewportWidth() >= (config.breakpoints[breakpoint] || 0);
     },
 
     /**
@@ -92,6 +98,36 @@
       } else {
         console.log(`${prefix}`, message);
       }
+    },
+
+    /**
+     * Safe querySelector with error handling
+     * @param {string} selector - CSS selector
+     * @param {Element} context - Context element (default: document)
+     * @returns {Element|null}
+     */
+    safeQuerySelector(selector, context = document) {
+      try {
+        return context.querySelector(selector);
+      } catch (error) {
+        this.log(`Invalid selector: ${selector}`, 'error');
+        return null;
+      }
+    },
+
+    /**
+     * Safe querySelectorAll with error handling
+     * @param {string} selector - CSS selector
+     * @param {Element} context - Context element (default: document)
+     * @returns {NodeList}
+     */
+    safeQuerySelectorAll(selector, context = document) {
+      try {
+        return context.querySelectorAll(selector);
+      } catch (error) {
+        this.log(`Invalid selector: ${selector}`, 'error');
+        return [];
+      }
     }
   };
 
@@ -99,114 +135,173 @@
    * Initialize smooth scrolling for anchor links
    */
   function initSmoothScroll() {
-    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    try {
+      const anchorLinks = utils.safeQuerySelectorAll('a[href^="#"]');
 
-    anchorLinks.forEach(link => {
-      link.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
+      if (anchorLinks.length === 0) {
+        utils.log('No anchor links found for smooth scrolling');
+        return;
+      }
 
-        if (href === '#') return;
+      anchorLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
 
-        const target = document.querySelector(href);
-
-        if (target) {
-          e.preventDefault();
-
-          const headerOffset = 80;
-          const elementPosition = target.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-          if (config.reducedMotion) {
-            window.scrollTo({
-              top: offsetPosition
-            });
-          } else {
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            });
+          if (!href || href === '#') {
+            return;
           }
 
-          utils.log(`Smooth scroll to ${href}`);
-        }
+          const target = utils.safeQuerySelector(href);
+
+          if (target) {
+            e.preventDefault();
+
+            const headerOffset = 80;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            if (config.reducedMotion) {
+              window.scrollTo({
+                top: offsetPosition
+              });
+            } else {
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+              });
+            }
+
+            utils.log(`Smooth scroll to ${href}`);
+
+            if (target.hasAttribute('tabindex')) {
+              target.focus();
+            } else {
+              target.setAttribute('tabindex', '-1');
+              target.focus();
+              target.addEventListener('blur', function removeTempTabindex() {
+                target.removeAttribute('tabindex');
+                target.removeEventListener('blur', removeTempTabindex);
+              });
+            }
+          }
+        });
       });
-    });
+
+      utils.log(`Initialized smooth scrolling for ${anchorLinks.length} anchor links`);
+    } catch (error) {
+      utils.log(`Error initializing smooth scroll: ${error.message}`, 'error');
+    }
   }
 
   /**
-   * Initialize external link handling
+   * Initialize external link handling for security and UX
    */
   function initExternalLinks() {
-    const externalLinks = document.querySelectorAll('a[href^="http"]');
+    try {
+      const externalLinks = utils.safeQuerySelectorAll('a[href^="http"]');
+      let externalCount = 0;
 
-    externalLinks.forEach(link => {
-      if (!link.hostname.includes(window.location.hostname)) {
-        link.setAttribute('rel', 'noopener noreferrer');
-        link.setAttribute('target', '_blank');
-      }
-    });
+      externalLinks.forEach(link => {
+        try {
+          const linkHostname = new URL(link.href).hostname;
+          if (linkHostname !== window.location.hostname) {
+            link.setAttribute('rel', 'noopener noreferrer');
+            link.setAttribute('target', '_blank');
+            externalCount++;
+          }
+        } catch (error) {
+          utils.log(`Invalid URL in link: ${link.href}`, 'warn');
+        }
+      });
 
-    utils.log(`Initialized ${externalLinks.length} external links`);
+      utils.log(`Initialized ${externalCount} external links with security attributes`);
+    } catch (error) {
+      utils.log(`Error initializing external links: ${error.message}`, 'error');
+    }
   }
 
   /**
-   * Initialize lazy loading for images
+   * Initialize lazy loading for images using Intersection Observer
    */
   function initLazyLoading() {
-    if ('IntersectionObserver' in window) {
-      const lazyImages = document.querySelectorAll('img[data-src]');
+    if (!config.features.intersectionObserver) {
+      utils.log('IntersectionObserver not supported - skipping lazy loading', 'warn');
+      return;
+    }
+
+    try {
+      const lazyImages = utils.safeQuerySelectorAll('img[data-src]');
+
+      if (lazyImages.length === 0) {
+        return;
+      }
 
       const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const img = entry.target;
-            img.src = img.dataset.src;
+
+            if (img.dataset.src) {
+              img.src = img.dataset.src;
+              img.removeAttribute('data-src');
+            }
 
             if (img.dataset.srcset) {
               img.srcset = img.dataset.srcset;
+              img.removeAttribute('data-srcset');
             }
 
-            img.removeAttribute('data-src');
-            img.removeAttribute('data-srcset');
+            img.classList.add('lazy-loaded');
             imageObserver.unobserve(img);
 
             utils.log(`Lazy loaded image: ${img.src}`);
           }
         });
       }, {
-        rootMargin: '50px 0px'
+        rootMargin: '50px 0px',
+        threshold: 0.01
       });
 
       lazyImages.forEach(img => imageObserver.observe(img));
       utils.log(`Initialized lazy loading for ${lazyImages.length} images`);
+    } catch (error) {
+      utils.log(`Error initializing lazy loading: ${error.message}`, 'error');
     }
   }
 
   /**
-   * Initialize page visibility handling
+   * Initialize page visibility handling for performance optimization
    */
   function initPageVisibility() {
-    let hidden, visibilityChange;
+    try {
+      let hidden, visibilityChange;
 
-    if (typeof document.hidden !== 'undefined') {
-      hidden = 'hidden';
-      visibilityChange = 'visibilitychange';
-    } else if (typeof document.msHidden !== 'undefined') {
-      hidden = 'msHidden';
-      visibilityChange = 'msvisibilitychange';
-    } else if (typeof document.webkitHidden !== 'undefined') {
-      hidden = 'webkitHidden';
-      visibilityChange = 'webkitvisibilitychange';
-    }
+      if (typeof document.hidden !== 'undefined') {
+        hidden = 'hidden';
+        visibilityChange = 'visibilitychange';
+      } else if (typeof document.msHidden !== 'undefined') {
+        hidden = 'msHidden';
+        visibilityChange = 'msvisibilitychange';
+      } else if (typeof document.webkitHidden !== 'undefined') {
+        hidden = 'webkitHidden';
+        visibilityChange = 'webkitvisibilitychange';
+      }
 
-    if (typeof document[hidden] !== 'undefined') {
-      document.addEventListener(visibilityChange, function() {
-        if (document[hidden]) {
-          utils.log('Page hidden');
-        } else {
-          utils.log('Page visible');
-        }
-      });
+      if (typeof document[hidden] !== 'undefined') {
+        document.addEventListener(visibilityChange, function() {
+          const isHidden = document[hidden];
+
+          document.dispatchEvent(new CustomEvent('pageVisibilityChange', {
+            detail: { hidden: isHidden }
+          }));
+
+          utils.log(isHidden ? 'Page hidden' : 'Page visible');
+        });
+
+        utils.log('Page visibility tracking initialized');
+      }
+    } catch (error) {
+      utils.log(`Error initializing page visibility: ${error.message}`, 'error');
     }
   }
 
@@ -214,51 +309,126 @@
    * Initialize performance monitoring
    */
   function initPerformanceMonitoring() {
-    if ('PerformanceObserver' in window) {
-      try {
-        const perfObserver = new PerformanceObserver(list => {
-          list.getEntries().forEach(entry => {
-            if (entry.duration > 100) {
-              utils.log(`Slow operation detected: ${entry.name} (${entry.duration.toFixed(2)}ms)`, 'warn');
-            }
-          });
-        });
+    if (!config.features.performanceObserver) {
+      utils.log('PerformanceObserver not supported', 'warn');
+      return;
+    }
 
-        perfObserver.observe({ entryTypes: ['measure'] });
-      } catch (error) {
-        utils.log(`Performance monitoring failed: ${error.message}`, 'error');
-      }
+    try {
+      const perfObserver = new PerformanceObserver(list => {
+        list.getEntries().forEach(entry => {
+          if (entry.duration > 100) {
+            utils.log(`Performance: ${entry.name} took ${entry.duration.toFixed(2)}ms`, 'warn');
+          }
+        });
+      });
+
+      perfObserver.observe({ entryTypes: ['measure'] });
+      utils.log('Performance monitoring enabled');
+    } catch (error) {
+      utils.log(`Performance monitoring failed: ${error.message}`, 'error');
     }
   }
 
   /**
-   * Handle window resize events
+   * Handle window resize events with debouncing
    */
   function handleResize() {
     const debouncedResize = utils.debounce(() => {
-      utils.log(`Window resized to ${utils.getViewportWidth()}px`);
+      const width = utils.getViewportWidth();
+      const detail = {
+        width: width,
+        isAboveSm: utils.isAboveBreakpoint('sm'),
+        isAboveMd: utils.isAboveBreakpoint('md'),
+        isAboveLg: utils.isAboveBreakpoint('lg'),
+        isAboveXl: utils.isAboveBreakpoint('xl')
+      };
 
-      document.dispatchEvent(new CustomEvent('viewportResize', {
-        detail: {
-          width: utils.getViewportWidth(),
-          isAboveMd: utils.isAboveBreakpoint('md'),
-          isAboveLg: utils.isAboveBreakpoint('lg')
-        }
-      }));
+      if (config.features.customEvents) {
+        document.dispatchEvent(new CustomEvent('viewportResize', { detail }));
+      }
+
+      utils.log(`Viewport resized to ${width}px`);
     }, 250);
 
     window.addEventListener('resize', debouncedResize);
+    utils.log('Resize handler initialized');
   }
 
   /**
-   * Initialize all modules
+   * Handle reduced motion preference changes
    */
-  function init() {
-    performance.mark('init-start');
+  function initReducedMotionListener() {
+    try {
+      const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    utils.log('Initializing landing page...');
+      const handleMotionChange = (e) => {
+        config.reducedMotion = e.matches;
+
+        if (config.features.customEvents) {
+          document.dispatchEvent(new CustomEvent('reducedMotionChange', {
+            detail: { reducedMotion: e.matches }
+          }));
+        }
+
+        utils.log(`Reduced motion preference changed: ${e.matches}`);
+      };
+
+      if (motionQuery.addEventListener) {
+        motionQuery.addEventListener('change', handleMotionChange);
+      } else if (motionQuery.addListener) {
+        motionQuery.addListener(handleMotionChange);
+      }
+
+      utils.log('Reduced motion listener initialized');
+    } catch (error) {
+      utils.log(`Error initializing reduced motion listener: ${error.message}`, 'error');
+    }
+  }
+
+  /**
+   * Wait for other modules to load
+   * @param {number} maxWait - Maximum wait time in milliseconds
+   * @returns {Promise}
+   */
+  function waitForModules(maxWait = 5000) {
+    return new Promise((resolve) => {
+      const startTime = Date.now();
+
+      const checkModules = () => {
+        const animationsReady = typeof window.ScrollAnimations !== 'undefined';
+        const interactionsReady = typeof window.Interactions !== 'undefined';
+
+        if (animationsReady && interactionsReady) {
+          utils.log('All modules loaded successfully');
+          resolve(true);
+        } else if (Date.now() - startTime > maxWait) {
+          utils.log('Module loading timeout - some modules may not be available', 'warn');
+          resolve(false);
+        } else {
+          setTimeout(checkModules, 100);
+        }
+      };
+
+      checkModules();
+    });
+  }
+
+  /**
+   * Initialize all modules and coordinate startup
+   */
+  async function init() {
+    if (typeof performance !== 'undefined' && performance.mark) {
+      performance.mark('init-start');
+    }
+
+    utils.log('='.repeat(60));
+    utils.log('Massage Therapy Landing Page - Initialization Started');
+    utils.log('='.repeat(60));
     utils.log(`Reduced motion: ${config.reducedMotion}`);
     utils.log(`Touch device: ${config.isTouch}`);
+    utils.log(`IntersectionObserver: ${config.features.intersectionObserver}`);
+    utils.log(`PerformanceObserver: ${config.features.performanceObserver}`);
 
     try {
       initSmoothScroll();
@@ -267,18 +437,51 @@
       initPageVisibility();
       initPerformanceMonitoring();
       handleResize();
+      initReducedMotionListener();
 
-      performance.mark('init-end');
-      performance.measure('initialization', 'init-start', 'init-end');
+      await waitForModules();
 
-      const initTime = performance.getEntriesByName('initialization')[0].duration;
-      utils.log(`Initialization complete in ${initTime.toFixed(2)}ms`);
+      if (typeof performance !== 'undefined' && performance.mark && performance.measure) {
+        performance.mark('init-end');
+        performance.measure('initialization', 'init-start', 'init-end');
 
-      document.dispatchEvent(new CustomEvent('landingPageReady'));
+        const initMeasure = performance.getEntriesByName('initialization')[0];
+        if (initMeasure) {
+          utils.log(`Initialization complete in ${initMeasure.duration.toFixed(2)}ms`);
+        }
+      }
+
+      if (config.features.customEvents) {
+        document.dispatchEvent(new CustomEvent('landingPageReady', {
+          detail: {
+            config: config,
+            timestamp: Date.now()
+          }
+        }));
+      }
+
+      utils.log('='.repeat(60));
+      utils.log('All systems ready - Landing page fully initialized');
+      utils.log('='.repeat(60));
     } catch (error) {
-      utils.log(`Initialization error: ${error.message}`, 'error');
+      utils.log(`Critical initialization error: ${error.message}`, 'error');
+      console.error('Stack trace:', error);
     }
   }
+
+  /**
+   * Global error handler for uncaught errors
+   */
+  window.addEventListener('error', function(event) {
+    utils.log(`Uncaught error: ${event.message} at ${event.filename}:${event.lineno}`, 'error');
+  });
+
+  /**
+   * Global error handler for unhandled promise rejections
+   */
+  window.addEventListener('unhandledrejection', function(event) {
+    utils.log(`Unhandled promise rejection: ${event.reason}`, 'error');
+  });
 
   /**
    * DOM ready handler
@@ -295,7 +498,8 @@
   window.LandingPage = {
     config,
     utils,
-    version: '1.0.0'
+    version: '1.0.0',
+    init: init
   };
 
 })();
