@@ -10,7 +10,8 @@
     "build:html": "shx cp index.html dist/",
     "build:assets": "shx cp -r assets dist/ || shx echo 'No assets directory found'",
     "prebuild": "shx rm -rf dist && shx mkdir -p dist/styles dist/scripts",
-    "build": "npm run build:css && npm run build:js && npm run build:html && npm run build:assets",
+    "build": "node build.js",
+    "build:legacy": "npm run build:css && npm run build:js && npm run build:html && npm run build:assets",
     "lint": "eslint scripts/**/*.js"
   },
   "keywords": [
