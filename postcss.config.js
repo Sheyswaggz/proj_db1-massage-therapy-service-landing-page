@@ -29,7 +29,7 @@ module.exports = {
           },
           mergeRules: true,
           cssDeclarationSorter: {
-            order: 'alphabetically'
+        order: 'alphabetical',
           }
         }
       ]
