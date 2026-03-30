@@ -1,5 +1,5 @@
 /* ========================================================================
-   CSS Reset and Base Styles
+   Modern CSS Reset - Massage Therapy Landing Page
    ======================================================================== */
 
 *,
@@ -15,6 +15,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+  text-size-adjust: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -27,6 +28,7 @@ body {
   min-height: 100vh;
   line-height: 1.6;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 img,
@@ -57,35 +59,58 @@ a {
   color: inherit;
 }
 
+ul,
+ol {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
 /* ========================================================================
-   CSS Custom Properties - Wellness/Massage Therapy Theme
+   CSS Custom Properties - Wellness Color Palette
    ======================================================================== */
 
 :root {
-  /* Color Palette - Calming, Natural, Professional */
-  --color-sage-50: hsl(142, 20%, 96%);
-  --color-sage-100: hsl(142, 20%, 92%);
-  --color-sage-200: hsl(142, 18%, 82%);
-  --color-sage-300: hsl(142, 16%, 68%);
-  --color-sage-400: hsl(142, 14%, 54%);
-  --color-sage-500: hsl(142, 18%, 42%);
-  --color-sage-600: hsl(142, 22%, 32%);
-  --color-sage-700: hsl(142, 24%, 24%);
-  --color-sage-800: hsl(142, 26%, 18%);
-  --color-sage-900: hsl(142, 28%, 12%);
+  /* Calming Blues */
+  --color-blue-50: hsl(207, 73%, 97%);
+  --color-blue-100: hsl(207, 73%, 92%);
+  --color-blue-200: hsl(207, 70%, 84%);
+  --color-blue-300: hsl(207, 65%, 72%);
+  --color-blue-400: hsl(207, 60%, 60%);
+  --color-blue-500: #4A90E2;
+  --color-blue-600: hsl(207, 75%, 54%);
+  --color-blue-700: hsl(207, 80%, 44%);
+  --color-blue-800: hsl(207, 85%, 34%);
+  --color-blue-900: hsl(207, 90%, 24%);
 
-  --color-sand-50: hsl(40, 35%, 97%);
-  --color-sand-100: hsl(40, 35%, 92%);
-  --color-sand-200: hsl(40, 32%, 85%);
-  --color-sand-300: hsl(40, 28%, 75%);
-  --color-sand-400: hsl(40, 24%, 65%);
-  --color-sand-500: hsl(40, 20%, 55%);
+  /* Sage Greens */
+  --color-sage-50: hsl(95, 30%, 96%);
+  --color-sage-100: hsl(95, 30%, 90%);
+  --color-sage-200: hsl(95, 28%, 82%);
+  --color-sage-300: hsl(95, 24%, 70%);
+  --color-sage-400: hsl(95, 20%, 58%);
+  --color-sage-500: #7CB342;
+  --color-sage-600: hsl(95, 48%, 40%);
+  --color-sage-700: hsl(95, 52%, 32%);
+  --color-sage-800: hsl(95, 56%, 24%);
+  --color-sage-900: hsl(95, 60%, 16%);
 
-  --color-lavender-50: hsl(260, 25%, 96%);
-  --color-lavender-100: hsl(260, 25%, 90%);
-  --color-lavender-500: hsl(260, 20%, 65%);
-  --color-lavender-600: hsl(260, 22%, 55%);
+  /* Earth Tones */
+  --color-earth-50: hsl(16, 25%, 96%);
+  --color-earth-100: hsl(16, 25%, 90%);
+  --color-earth-200: hsl(16, 22%, 82%);
+  --color-earth-300: hsl(16, 18%, 70%);
+  --color-earth-400: hsl(16, 14%, 58%);
+  --color-earth-500: #8D6E63;
+  --color-earth-600: hsl(16, 26%, 46%);
+  --color-earth-700: hsl(16, 30%, 36%);
+  --color-earth-800: hsl(16, 34%, 26%);
+  --color-earth-900: hsl(16, 38%, 18%);
 
+  /* Neutrals */
   --color-white: hsl(0, 0%, 100%);
   --color-gray-50: hsl(0, 0%, 98%);
   --color-gray-100: hsl(0, 0%, 96%);
@@ -97,21 +122,32 @@ a {
   --color-gray-700: hsl(0, 0%, 30%);
   --color-gray-800: hsl(0, 0%, 20%);
   --color-gray-900: hsl(0, 0%, 12%);
+  --color-black: hsl(0, 0%, 0%);
 
-  /* Semantic Colors */
+  /* Semantic Colors - Wellness Theme */
   --color-primary: var(--color-sage-500);
   --color-primary-hover: var(--color-sage-600);
   --color-primary-light: var(--color-sage-100);
-  --color-accent: var(--color-lavender-500);
-  --color-accent-hover: var(--color-lavender-600);
+  --color-primary-dark: var(--color-sage-700);
+  --color-secondary: var(--color-blue-500);
+  --color-secondary-hover: var(--color-blue-600);
+  --color-secondary-light: var(--color-blue-100);
+  --color-accent: var(--color-earth-500);
+  --color-accent-hover: var(--color-earth-600);
+  --color-accent-light: var(--color-earth-100);
   --color-background: var(--color-white);
   --color-surface: var(--color-gray-50);
   --color-text: var(--color-gray-900);
   --color-text-secondary: var(--color-gray-600);
   --color-text-muted: var(--color-gray-500);
   --color-border: var(--color-gray-200);
+  --color-border-hover: var(--color-gray-300);
+  --color-success: hsl(142, 70%, 45%);
+  --color-error: hsl(0, 70%, 50%);
+  --color-warning: hsl(38, 92%, 50%);
+  --color-info: var(--color-blue-500);
 
-  /* Fluid Typography - Minimalist Approach */
+  /* Responsive Typography Scale - Serif Focus */
   --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
   --font-size-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem);
   --font-size-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
@@ -120,10 +156,11 @@ a {
   --font-size-2xl: clamp(1.5rem, 1.3rem + 1vw, 2.25rem);
   --font-size-3xl: clamp(1.875rem, 1.5rem + 1.875vw, 3rem);
   --font-size-4xl: clamp(2.25rem, 1.75rem + 2.5vw, 3.75rem);
+  --font-size-5xl: clamp(2.75rem, 2rem + 3.75vw, 4.5rem);
 
-  /* Font Families - Elegant and Professional */
-  --font-serif: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+  /* Font Families - Elegant Serif */
+  --font-serif: 'Georgia', 'Times New Roman', 'Times', serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
 
   /* Font Weights */
   --font-weight-light: 300;
@@ -149,6 +186,7 @@ a {
   --space-3xl: 4rem;
   --space-4xl: 6rem;
   --space-5xl: 8rem;
+  --space-6xl: 12rem;
 
   /* Container Widths */
   --container-xs: 480px;
@@ -159,25 +197,32 @@ a {
   --container-2xl: 1536px;
 
   /* Border Radius */
+  --radius-xs: 0.125rem;
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
   --radius-full: 9999px;
 
   /* Shadows - Soft and Natural */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
 
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slower: 500ms cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Z-Index Scale */
+  --z-base: 0;
   --z-dropdown: 1000;
   --z-sticky: 1020;
   --z-fixed: 1030;
@@ -185,6 +230,13 @@ a {
   --z-modal: 1050;
   --z-popover: 1060;
   --z-tooltip: 1070;
+
+  /* Breakpoints */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
 }
 
 /* ========================================================================
@@ -225,6 +277,7 @@ h2 {
 
 h3 {
   font-size: var(--font-size-2xl);
+  letter-spacing: -0.01em;
 }
 
 h4 {
@@ -263,6 +316,14 @@ small,
   font-size: var(--font-size-xs);
 }
 
+.text-lg {
+  font-size: var(--font-size-lg);
+}
+
+.text-xl {
+  font-size: var(--font-size-xl);
+}
+
 strong,
 b {
   font-weight: var(--font-weight-semibold);
@@ -273,8 +334,15 @@ i {
   font-style: italic;
 }
 
+blockquote {
+  padding-left: var(--space-lg);
+  border-left: 4px solid var(--color-primary);
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
 /* ========================================================================
-   Utility Classes
+   Layout Utilities - CSS Grid and Flexbox Base Classes
    ======================================================================== */
 
 /* Container */
@@ -285,6 +353,10 @@ i {
   margin-right: auto;
   padding-left: var(--space-lg);
   padding-right: var(--space-lg);
+}
+
+.container-xs {
+  max-width: var(--container-xs);
 }
 
 .container-sm {
@@ -299,38 +371,258 @@ i {
   max-width: var(--container-lg);
 }
 
+.container-2xl {
+  max-width: var(--container-2xl);
+}
+
+.container-full {
+  max-width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Flexbox Utilities */
+.flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.items-stretch {
+  align-items: stretch;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.gap-xs {
+  gap: var(--space-xs);
+}
+
+.gap-sm {
+  gap: var(--space-sm);
+}
+
+.gap-md {
+  gap: var(--space-md);
+}
+
+.gap-lg {
+  gap: var(--space-lg);
+}
+
+.gap-xl {
+  gap: var(--space-xl);
+}
+
+.gap-2xl {
+  gap: var(--space-2xl);
+}
+
+/* Grid Utilities */
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 /* Spacing Utilities */
-.mt-auto { margin-top: auto; }
-.mb-auto { margin-bottom: auto; }
-.my-auto { margin-top: auto; margin-bottom: auto; }
+.mt-auto {
+  margin-top: auto;
+}
+
+.mb-auto {
+  margin-bottom: auto;
+}
+
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
 
 /* Text Alignment */
-.text-left { text-align: left; }
-.text-center { text-align: center; }
-.text-right { text-align: right; }
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
 
 /* Text Colors */
-.text-primary { color: var(--color-primary); }
-.text-accent { color: var(--color-accent); }
-.text-muted { color: var(--color-text-muted); }
-.text-secondary { color: var(--color-text-secondary); }
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-gray {
+  color: var(--color-text-secondary);
+}
+
+.text-white {
+  color: var(--color-white);
+}
 
 /* Background Colors */
-.bg-white { background-color: var(--color-white); }
-.bg-surface { background-color: var(--color-surface); }
-.bg-primary { background-color: var(--color-primary); }
-.bg-primary-light { background-color: var(--color-primary-light); }
+.bg-white {
+  background-color: var(--color-white);
+}
+
+.bg-surface {
+  background-color: var(--color-surface);
+}
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-primary-light {
+  background-color: var(--color-primary-light);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.bg-secondary-light {
+  background-color: var(--color-secondary-light);
+}
+
+.bg-accent {
+  background-color: var(--color-accent);
+}
+
+.bg-accent-light {
+  background-color: var(--color-accent-light);
+}
 
 /* Display */
-.block { display: block; }
-.inline-block { display: inline-block; }
-.inline { display: inline; }
-.flex { display: flex; }
-.inline-flex { display: inline-flex; }
-.grid { display: grid; }
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.inline {
+  display: inline;
+}
+
+.hidden {
+  display: none;
+}
 
 /* Visibility */
-.hidden { display: none; }
 .sr-only {
   position: absolute;
   width: 1px;
@@ -343,6 +635,23 @@ i {
   border-width: 0;
 }
 
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-primary);
+  color: var(--color-white);
+  padding: var(--space-sm) var(--space-md);
+  text-decoration: none;
+  z-index: var(--z-tooltip);
+  border-radius: var(--radius-md);
+}
+
+.skip-link:focus {
+  top: var(--space-sm);
+  left: var(--space-sm);
+}
+
 /* Focus */
 :focus-visible {
   outline: 2px solid var(--color-primary);
@@ -353,4 +662,72 @@ button:focus-visible,
 a:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-primary-light);
+  color: var(--color-text);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-gray-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gray-400);
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-500);
+}
+
+/* ========================================================================
+   Responsive Utilities
+   ======================================================================== */
+
+@media (max-width: 767px) {
+  .container {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:block {
+    display: block;
+  }
+
+  .md\:hidden {
+    display: none;
+  }
+
+  .md\:text-left {
+    text-align: left;
+  }
+
+  .md\:text-center {
+    text-align: center;
+  }
+
+  .md\:text-right {
+    text-align: right;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:block {
+    display: block;
+  }
+
+  .lg\:hidden {
+    display: none;
+  }
 }

@@ -1,5 +1,6 @@
 /* ========================================================================
    Animations and Transitions - Massage Therapy Landing Page
+   With Accessibility Considerations (prefers-reduced-motion)
    ======================================================================== */
 
 /* ========================================================================
@@ -70,6 +71,17 @@
   transform: scale(0.9);
 }
 
+[data-reveal="zoom"] {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+[data-reveal="zoom"].hidden {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
 /* Staggered delays for sequential reveals */
 [data-reveal][data-delay="100"] {
   transition-delay: 100ms;
@@ -89,6 +101,10 @@
 
 [data-reveal][data-delay="500"] {
   transition-delay: 500ms;
+}
+
+[data-reveal][data-delay="600"] {
+  transition-delay: 600ms;
 }
 
 /* ========================================================================
@@ -125,7 +141,10 @@
     rgba(255, 255, 255, 0.2) 50%,
     transparent 100%
   );
-  animation: shimmer 3s linear infinite;
+}
+
+.btn-shimmer:hover {
+  animation: shimmer 2s linear infinite;
 }
 
 /* Ripple effect for button clicks */
@@ -152,8 +171,37 @@
   height: 300px;
 }
 
+/* Scale hover effect */
+.btn-scale {
+  transition: transform 0.2s ease-out;
+}
+
+.btn-scale:hover,
+.btn-scale:focus {
+  transform: scale(1.05);
+}
+
+.btn-scale:active {
+  transform: scale(0.98);
+}
+
+/* Glow effect on hover */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--color-primary), 0 0 10px var(--color-primary);
+  }
+  50% {
+    box-shadow: 0 0 10px var(--color-primary), 0 0 20px var(--color-primary);
+  }
+}
+
+.btn-glow:hover,
+.btn-glow:focus {
+  animation: glow 1.5s ease-in-out infinite;
+}
+
 /* ========================================================================
-   Loading States
+   Loading Spinner Animations
    ======================================================================== */
 
 @keyframes spin {
@@ -216,6 +264,93 @@
   animation-delay: 0.4s;
 }
 
+/* Wave loading animation */
+@keyframes wave {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-10px);
+  }
+}
+
+.loading-wave {
+  display: inline-flex;
+  gap: 0.25em;
+}
+
+.loading-wave span {
+  width: 0.25em;
+  height: 1em;
+  background-color: currentColor;
+  animation: wave 1.2s ease-in-out infinite;
+}
+
+.loading-wave span:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.loading-wave span:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.loading-wave span:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+/* ========================================================================
+   Success/Error State Transitions
+   ======================================================================== */
+
+@keyframes success-scale {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-success {
+  animation: success-scale 0.4s ease-out;
+}
+
+@keyframes error-shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}
+
+.animate-error {
+  animation: error-shake 0.5s ease-in-out;
+}
+
+@keyframes checkmark {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-checkmark {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: checkmark 0.6s ease-out forwards;
+}
+
 /* ========================================================================
    Hover Effects for Images and Cards
    ======================================================================== */
@@ -224,25 +359,50 @@
   transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
-.hover-lift:hover {
+.hover-lift:hover,
+.hover-lift:focus-within {
   transform: translateY(-8px);
   box-shadow: var(--shadow-xl);
+}
+
+.hover-zoom {
+  overflow: hidden;
 }
 
 .hover-zoom img {
   transition: transform var(--transition-slow);
 }
 
-.hover-zoom:hover img {
-  transform: scale(1.05);
+.hover-zoom:hover img,
+.hover-zoom:focus-within img {
+  transform: scale(1.1);
 }
 
 .hover-brightness {
   transition: filter var(--transition-base);
 }
 
-.hover-brightness:hover {
+.hover-brightness:hover,
+.hover-brightness:focus-within {
   filter: brightness(1.1);
+}
+
+.hover-saturate {
+  transition: filter var(--transition-base);
+}
+
+.hover-saturate:hover,
+.hover-saturate:focus-within {
+  filter: saturate(1.3);
+}
+
+.hover-shadow {
+  transition: box-shadow var(--transition-base);
+}
+
+.hover-shadow:hover,
+.hover-shadow:focus-within {
+  box-shadow: var(--shadow-xl);
 }
 
 /* ========================================================================
@@ -280,6 +440,28 @@
   }
 }
 
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .animate-fade-in {
   animation: fade-in 0.6s ease-out;
 }
@@ -290,6 +472,14 @@
 
 .animate-fade-in-down {
   animation: fade-in-down 0.6s ease-out;
+}
+
+.animate-fade-in-left {
+  animation: fade-in-left 0.6s ease-out;
+}
+
+.animate-fade-in-right {
+  animation: fade-in-right 0.6s ease-out;
 }
 
 /* ========================================================================
@@ -320,19 +510,23 @@
   transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base);
 }
 
+.transition-shadow {
+  transition: box-shadow var(--transition-base);
+}
+
 /* ========================================================================
    Focus Animations
    ======================================================================== */
 
 @keyframes focus-ring {
   0% {
-    box-shadow: 0 0 0 0 rgba(142, 180, 142, 0.4);
+    box-shadow: 0 0 0 0 var(--color-primary-light);
   }
   70% {
-    box-shadow: 0 0 0 10px rgba(142, 180, 142, 0);
+    box-shadow: 0 0 0 10px transparent;
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(142, 180, 142, 0);
+    box-shadow: 0 0 0 0 transparent;
   }
 }
 
@@ -366,6 +560,28 @@
   }
 }
 
+@keyframes slide-in-from-top {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-from-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes zoom-in {
   from {
     opacity: 0;
@@ -377,8 +593,43 @@
   }
 }
 
+@keyframes zoom-out {
+  from {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-slide-in-left {
+  animation: slide-in-from-left 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-from-right 0.6s ease-out;
+}
+
+.animate-slide-in-top {
+  animation: slide-in-from-top 0.6s ease-out;
+}
+
+.animate-slide-in-bottom {
+  animation: slide-in-from-bottom 0.6s ease-out;
+}
+
+.animate-zoom-in {
+  animation: zoom-in 0.6s ease-out;
+}
+
+.animate-zoom-out {
+  animation: zoom-out 0.6s ease-out;
+}
+
 /* ========================================================================
-   Breathing/Floating Animation for Hero Elements
+   Floating/Breathing Animation for Hero Elements
    ======================================================================== */
 
 @keyframes float {
@@ -390,12 +641,85 @@
   }
 }
 
+@keyframes float-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
 
+.animate-float-subtle {
+  animation: float-subtle 4s ease-in-out infinite;
+}
+
+/* Breathing animation for call-to-action elements */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+.animate-breathe {
+  animation: breathe 2.5s ease-in-out infinite;
+}
+
 /* ========================================================================
-   Skeleton Loading Animation (already visible by default)
+   Rotate and Bounce Animations
+   ======================================================================== */
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-rotate {
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 1.5s ease-in-out infinite;
+}
+
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+/* ========================================================================
+   Skeleton Loading Animation
    ======================================================================== */
 
 @keyframes skeleton-shimmer {
@@ -416,10 +740,97 @@
   );
   background-size: 200% 100%;
   animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-md);
+}
+
+.skeleton-text {
+  height: 1em;
+  margin-bottom: 0.5em;
+  width: 100%;
+}
+
+.skeleton-title {
+  height: 2em;
+  width: 60%;
+  margin-bottom: 1em;
+}
+
+.skeleton-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+}
+
+.skeleton-card {
+  height: 240px;
+  width: 100%;
+}
+
+.skeleton-button {
+  height: 44px;
+  width: 120px;
 }
 
 /* ========================================================================
-   Reduced Motion Support
+   Progress Bar Animations
+   ======================================================================== */
+
+@keyframes progress-bar {
+  from {
+    width: 0%;
+  }
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background-color: var(--color-gray-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: var(--color-primary);
+  animation: progress-bar 2s ease-out;
+}
+
+/* ========================================================================
+   Notification/Alert Animations
+   ======================================================================== */
+
+@keyframes slide-down-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.notification-enter {
+  animation: slide-down-fade-in 0.3s ease-out;
+}
+
+@keyframes slide-up-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+.notification-exit {
+  animation: slide-up-fade-out 0.3s ease-out;
+}
+
+/* ========================================================================
+   Reduced Motion Support - Accessibility
    Respects user's prefers-reduced-motion preference
    ======================================================================== */
 
@@ -433,21 +844,30 @@
     scroll-behavior: auto !important;
   }
 
-  [data-reveal] {
+  /* Keep scroll-reveal elements visible */
+  [data-reveal],
+  [data-reveal].hidden {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
   }
 
-  [data-reveal].hidden {
-    opacity: 1 !important;
-    transform: none !important;
+  /* Disable all animations */
+  .animate-float,
+  .animate-float-subtle,
+  .animate-breathe,
+  .animate-bounce,
+  .animate-bounce-subtle,
+  .animate-rotate,
+  .btn-pulse,
+  .btn-shimmer,
+  .btn-glow {
+    animation: none !important;
   }
 
-  .animate-float,
-  .btn-pulse,
-  .btn-shimmer {
-    animation: none !important;
+  /* Maintain transitions for focus states */
+  :focus-visible {
+    transition: outline-offset 0.1s !important;
   }
 }
 
@@ -475,6 +895,18 @@
   animation-delay: 500ms;
 }
 
+.animate-delay-600 {
+  animation-delay: 600ms;
+}
+
+.animate-delay-700 {
+  animation-delay: 700ms;
+}
+
+.animate-delay-800 {
+  animation-delay: 800ms;
+}
+
 .animate-duration-fast {
   animation-duration: 150ms;
 }
@@ -485,4 +917,72 @@
 
 .animate-duration-slow {
   animation-duration: 600ms;
+}
+
+.animate-duration-slower {
+  animation-duration: 1000ms;
+}
+
+/* Animation iteration controls */
+.animate-once {
+  animation-iteration-count: 1;
+}
+
+.animate-twice {
+  animation-iteration-count: 2;
+}
+
+.animate-infinite {
+  animation-iteration-count: infinite;
+}
+
+/* Pause animation on hover */
+.animate-pause-on-hover:hover {
+  animation-play-state: paused;
+}
+
+/* ========================================================================
+   Page Transition Animations
+   ======================================================================== */
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.page-transition {
+  animation: page-fade-in 0.3s ease-out;
+}
+
+/* Modal/Overlay animations */
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-scale-up {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-overlay {
+  animation: modal-fade-in 0.2s ease-out;
+}
+
+.modal-content {
+  animation: modal-scale-up 0.3s ease-out;
 }
