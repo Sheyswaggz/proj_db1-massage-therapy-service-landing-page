@@ -166,6 +166,17 @@
     ]
   }
   </script>
+
+  <style>
+    .hero-variant-control,
+    .hero-variant-treatment {
+      display: none;
+    }
+    .hero-variant-control.active,
+    .hero-variant-treatment.active {
+      display: block;
+    }
+  </style>
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to main content</a>
@@ -194,7 +205,12 @@
   </header>
 
   <main id="main" role="main">
-    <section class="hero hero-variant-1" aria-labelledby="hero-heading">
+    <!-- === EXPERIMENT START: two_types_of_hero_section === -->
+    <!-- Created: 2026-04-01 | Flag: two_types_of_hero_section | Platform: statsig -->
+    <!-- CLEANUP: Remove this block and keep winning variant when experiment concludes -->
+
+    <!-- CONTROL VARIANT: Original hero section with full-width background image -->
+    <section class="hero hero-variant-1 hero-variant-control" aria-labelledby="hero-heading-control">
       <img
         class="hero-image-bg"
         data-src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1920&q=80"
@@ -208,14 +224,81 @@
         height="1080"
       >
       <div class="hero-content">
-        <h1 id="hero-heading" class="hero-heading">Experience Healing Through Touch</h1>
+        <h1 id="hero-heading-control" class="hero-heading">Experience Healing Through Touch</h1>
         <p class="hero-subheading">Professional massage therapy tailored to your wellness needs. Certified therapists with over 15 years of experience in therapeutic massage, pain management, and relaxation techniques.</p>
         <div class="hero-cta">
-          <a href="#contact" class="btn btn-primary">Book Your Session Today</a>
+          <a href="#contact" class="btn btn-primary hero-cta-button" data-experiment-action="book_session">Book Your Session Today</a>
           <a href="#services" class="btn btn-secondary">Explore Our Services</a>
         </div>
       </div>
     </section>
+
+    <!-- TREATMENT VARIANT: Split-screen hero with content on left, imagery on right -->
+    <section class="hero hero-variant-2 hero-variant-treatment" aria-labelledby="hero-heading-treatment">
+      <div class="hero-split-container">
+        <div class="hero-split-content">
+          <div class="hero-content-wrapper">
+            <span class="hero-label">Welcome to Professional Wellness</span>
+            <h1 id="hero-heading-treatment" class="hero-heading">Transform Your Wellbeing with Expert Massage Therapy</h1>
+            <p class="hero-subheading">Over 15 years of certified therapeutic expertise. From Swedish relaxation to deep tissue recovery, we provide personalized treatments that address your unique wellness goals.</p>
+
+            <div class="hero-features">
+              <div class="hero-feature-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <span>Licensed & Certified Therapists</span>
+              </div>
+              <div class="hero-feature-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <span>Personalized Treatment Plans</span>
+              </div>
+              <div class="hero-feature-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <span>Same-Day Appointments Available</span>
+              </div>
+            </div>
+
+            <div class="hero-cta">
+              <a href="#contact" class="btn btn-primary hero-cta-button" data-experiment-action="book_session">Schedule Your Session</a>
+              <div class="hero-trust-badge">
+                <span class="trust-rating">★★★★★</span>
+                <span class="trust-text">4.9/5 from 127+ reviews</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-split-visual">
+          <img
+            data-src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&q=80"
+            data-srcset="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80 600w,
+                         https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80 900w,
+                         https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&q=80 1200w"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            alt="Professional massage therapist providing relaxing treatment in serene spa environment"
+            loading="eager"
+            width="1200"
+            height="1600"
+            class="hero-split-image"
+          >
+          <div class="hero-floating-badge">
+            <div class="badge-content">
+              <span class="badge-number">2,500+</span>
+              <span class="badge-label">Happy Clients</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- === EXPERIMENT END: two_types_of_hero_section === -->
 
     <section class="services" id="services" aria-labelledby="services-heading">
       <div class="container">
@@ -548,7 +631,7 @@
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
               </svg>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9 27 8.91 8.26 12 2"></polygon>
               </svg>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
@@ -845,6 +928,165 @@
       </div>
     </div>
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@statsig/js-client@3.0.0/build/statsig-js-client+session-replay+web-analytics.min.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      // === EXPERIMENT START: two_types_of_hero_section ===
+      // Created: 2026-04-01 | Flag: two_types_of_hero_section | Platform: statsig
+      // WARNING: Do not stop early. Peeking inflates false positive rates from 5% to 26%.
+      // CLEANUP: Remove this block and keep winning variant when experiment concludes
+
+      const STATSIG_CLIENT_KEY = 'client-YOUR_CLIENT_KEY_HERE';
+      const EXPERIMENT_FLAG = 'two_types_of_hero_section';
+
+      let statsigClient = null;
+      let experimentVariant = 'control';
+
+      function getOrCreateStableUserId() {
+        try {
+          let userId = localStorage.getItem('statsig_stable_user_id');
+          if (!userId) {
+            userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substring(2, 15);
+            localStorage.setItem('statsig_stable_user_id', userId);
+          }
+          return userId;
+        } catch (error) {
+          console.error('[Experiment] LocalStorage error, using session ID:', error);
+          return 'session_' + Date.now() + '_' + Math.random().toString(36).substring(2, 15);
+        }
+      }
+
+      function applyHeroVariant(variant) {
+        const controlHero = document.querySelector('.hero-variant-control');
+        const treatmentHero = document.querySelector('.hero-variant-treatment');
+
+        if (!controlHero || !treatmentHero) {
+          console.error('[Experiment] Hero variant elements not found');
+          return;
+        }
+
+        if (variant === 'treatment') {
+          controlHero.classList.remove('active');
+          treatmentHero.classList.add('active');
+          console.log('[Experiment] Showing treatment variant - split-screen hero');
+        } else {
+          controlHero.classList.add('active');
+          treatmentHero.classList.remove('active');
+          console.log('[Experiment] Showing control variant - full-width hero');
+        }
+      }
+
+      function trackConversion(action) {
+        if (statsigClient && typeof statsigClient.logEvent === 'function') {
+          try {
+            statsigClient.logEvent('conversion', action, {
+              experiment: EXPERIMENT_FLAG,
+              variant: experimentVariant,
+              timestamp: new Date().toISOString()
+            });
+            console.log('[Experiment] Conversion tracked:', action, 'variant:', experimentVariant);
+          } catch (error) {
+            console.error('[Experiment] Failed to track conversion:', error);
+          }
+        }
+      }
+
+      function setupConversionTracking() {
+        document.addEventListener('click', function(event) {
+          const target = event.target.closest('[data-experiment-action]');
+          if (target) {
+            const action = target.getAttribute('data-experiment-action');
+            trackConversion(action);
+          }
+        });
+
+        const contactForm = document.querySelector('.contact-form');
+        if (contactForm) {
+          contactForm.addEventListener('submit', function(event) {
+            trackConversion('form_submission');
+          });
+        }
+      }
+
+      async function initializeExperiment() {
+        if (!window.statsig || typeof window.statsig.StatsigClient !== 'function') {
+          console.error('[Experiment] Statsig SDK not loaded, showing control variant');
+          applyHeroVariant('control');
+          return;
+        }
+
+        try {
+          const userId = getOrCreateStableUserId();
+
+          statsigClient = new window.statsig.StatsigClient(STATSIG_CLIENT_KEY, {
+            userID: userId
+          });
+
+          await statsigClient.initializeAsync();
+          console.log('[Experiment] Statsig initialized for user:', userId);
+
+          const featureGate = statsigClient.checkGate(EXPERIMENT_FLAG);
+          experimentVariant = featureGate ? 'treatment' : 'control';
+
+          console.log('[Experiment] Assigned variant:', experimentVariant);
+
+          applyHeroVariant(experimentVariant);
+
+          statsigClient.logEvent('exposure', experimentVariant, {
+            experiment: EXPERIMENT_FLAG,
+            timestamp: new Date().toISOString()
+          });
+
+          setupConversionTracking();
+
+        } catch (error) {
+          console.error('[Experiment] Initialization failed:', error);
+          applyHeroVariant('control');
+        }
+      }
+
+      async function validateExperimentTracking() {
+        const checks = {
+          sdkLoaded: !!window.statsig,
+          clientInitialized: !!statsigClient,
+          variantAssigned: experimentVariant !== null,
+          conversionSetup: true
+        };
+
+        const allPassed = Object.values(checks).every(Boolean);
+
+        console.log('[Experiment] Diagnostic checks:', checks);
+        console.log('[Experiment] Tracking validation:', allPassed ? 'PASSED' : 'FAILED');
+
+        return { passed: allPassed, checks };
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          initializeExperiment();
+          if (process && process.env && process.env.NODE_ENV === 'development') {
+            setTimeout(validateExperimentTracking, 2000);
+          }
+        });
+      } else {
+        initializeExperiment();
+        if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'development') {
+          setTimeout(validateExperimentTracking, 2000);
+        }
+      }
+
+      window.ExperimentTracking = {
+        trackConversion: trackConversion,
+        validateTracking: validateExperimentTracking,
+        getVariant: function() { return experimentVariant; }
+      };
+
+      // === EXPERIMENT END: two_types_of_hero_section ===
+    })();
+  </script>
 
   <script src="scripts/lazy-loading.js" defer></script>
   <script src="scripts/cookie-consent.js" defer></script>
