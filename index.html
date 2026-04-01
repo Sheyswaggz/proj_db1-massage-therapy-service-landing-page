@@ -194,32 +194,6 @@
   </header>
 
   <main id="main" role="main">
-    <!-- Parent Project File Listing Section -->
-    <section class="parent-files-section" style="padding: 2rem; background-color: #f5f5f5; border: 2px solid #ddd; margin: 1rem;">
-      <h2 style="color: #333; margin-bottom: 1rem;">Parent Project Files</h2>
-      <p style="color: #666; margin-bottom: 1rem;">File listing from path: ../../../../</p>
-      <div id="parent-files-list" style="background: white; padding: 1rem; border-radius: 4px; font-family: monospace; font-size: 0.875rem;">
-        <p style="color: #999;">Note: File system access from browser is restricted for security reasons.</p>
-        <p style="color: #999;">This would require a backend API endpoint to list files from path: ../../../../</p>
-        <p style="color: #999; margin-top: 1rem;">Expected path: ../../../../ (relative to project root)</p>
-      </div>
-    </section>
-
-    <!-- ARVAD: This exact code change was already implemented at lines 210-261 of original file.
-         Both hero section variants are fully implemented with complete styling in components.css.
-         Variant 1 (full-width background overlay) is currently active.
-         Variant 2 (split layout) is commented out but ready to use.
-         To switch variants, simply comment/uncomment the respective sections. -->
-
-    <!--
-      Hero Section - Two Variants Available:
-      1. hero-variant-1: Full-width background image with centered overlay text
-      2. hero-variant-2: Split layout with content on left, image on right
-
-      To switch between variants, simply change the class name below.
-    -->
-
-    <!-- Hero Variant 1: Image Background (Full-Width Overlay) -->
     <section class="hero hero-variant-1" aria-labelledby="hero-heading">
       <img
         class="hero-image-bg"
@@ -242,36 +216,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Hero Variant 2: Split Layout (Content Left, Image Right) -->
-    <!-- Uncomment this section and comment out Variant 1 above to use the split layout -->
-    <!--
-    <section class="hero hero-variant-2" aria-labelledby="hero-heading">
-      <div class="hero-content">
-        <div class="hero-text">
-          <h1 id="hero-heading" class="hero-heading">Experience Healing Through Touch</h1>
-          <p class="hero-subheading">Professional massage therapy tailored to your wellness needs. Certified therapists with over 15 years of experience in therapeutic massage, pain management, and relaxation techniques.</p>
-          <div class="hero-cta">
-            <a href="#contact" class="btn btn-primary">Book Your Session Today</a>
-            <a href="#services" class="btn btn-secondary">Explore Our Services</a>
-          </div>
-        </div>
-        <div class="hero-image-container">
-          <img
-            class="hero-image-main"
-            data-src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1200&q=80"
-            data-srcset="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80 600w,
-                         https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1200&q=80 1200w"
-            sizes="(min-width: 768px) 50vw, 100vw"
-            alt="Professional massage therapy session in serene spa environment"
-            loading="eager"
-            width="1200"
-            height="800"
-          >
-        </div>
-      </div>
-    </section>
-    -->
 
     <section class="services" id="services" aria-labelledby="services-heading">
       <div class="container">
@@ -830,21 +774,7 @@
     </section>
   </main>
 
-  <!--
-    === EXPERIMENT START: experiment_with_two_types_of_footer_section ===
-    Hypothesis: Testing two footer layouts to determine which drives better engagement and conversions
-    Created: 2026-03-31 | Flag: experiment_with_two_types_of_footer_section | Platform: statsig
-    CLEANUP: Remove this block and keep [winner] path when experiment concludes
-
-    Footer Section - Two Variants Available:
-    1. footer-variant-1: Traditional multi-column footer with services, quick links, and contact info
-    2. footer-variant-2: Simplified centered footer with newsletter signup emphasis
-
-    To switch between variants, simply uncomment/comment the respective sections.
-  -->
-
-  <!-- Footer Variant 1: Traditional Multi-Column Footer (Default) -->
-  <footer class="footer footer-variant-1" role="contentinfo">
+  <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-content">
         <div class="footer-section">
@@ -915,94 +845,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- Footer Variant 2: Simplified Centered Footer with Newsletter Emphasis -->
-  <!-- Uncomment this section and comment out Variant 1 above to use the simplified centered footer -->
-  <!--
-  <footer class="footer footer-variant-2" role="contentinfo">
-    <div class="container">
-      <div class="footer-content-centered">
-        <div class="footer-brand">
-          <h3 class="footer-logo">Massage Therapy</h3>
-          <p class="footer-tagline">Your Journey to Wellness Starts Here</p>
-        </div>
-
-        <div class="footer-newsletter">
-          <h3 class="footer-newsletter-heading">Stay Connected</h3>
-          <p class="footer-newsletter-description">Get wellness tips, special offers, and updates delivered to your inbox.</p>
-          <form class="newsletter-form" aria-label="Newsletter signup">
-            <div class="newsletter-input-group">
-              <label for="newsletter-email" class="sr-only">Email address</label>
-              <input
-                type="email"
-                id="newsletter-email"
-                name="email"
-                class="newsletter-input"
-                placeholder="Enter your email"
-                required
-                aria-required="true"
-                autocomplete="email"
-                inputmode="email"
-              >
-              <button type="submit" class="newsletter-button">
-                Subscribe
-              </button>
-            </div>
-            <p class="newsletter-privacy">We respect your privacy. Unsubscribe anytime.</p>
-          </form>
-        </div>
-
-        <div class="footer-nav-centered">
-          <nav aria-label="Footer navigation">
-            <ul class="footer-nav-list" role="list">
-              <li><a href="#services" class="footer-nav-link">Services</a></li>
-              <li><a href="#about" class="footer-nav-link">About</a></li>
-              <li><a href="#testimonials" class="footer-nav-link">Testimonials</a></li>
-              <li><a href="#contact" class="footer-nav-link">Contact</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="footer-social-centered">
-          <a href="#" class="social-link-centered" aria-label="Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-            </svg>
-          </a>
-          <a href="#" class="social-link-centered" aria-label="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-            </svg>
-          </a>
-          <a href="#" class="social-link-centered" aria-label="Twitter">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
-            </svg>
-          </a>
-        </div>
-
-        <div class="footer-contact-centered">
-          <a href="tel:+15551234567" class="footer-contact-link">+1 (555) 123-4567</a>
-          <span class="footer-separator" aria-hidden="true">|</span>
-          <a href="mailto:info@massagetherapy.com" class="footer-contact-link">info@massagetherapy.com</a>
-        </div>
-
-        <div class="footer-bottom-centered">
-          <p class="footer-copyright">&copy; 2024 Massage Therapy Services. All rights reserved.</p>
-          <div class="footer-legal-centered">
-            <a href="#" class="footer-legal-link">Privacy Policy</a>
-            <span class="footer-separator" aria-hidden="true">|</span>
-            <a href="#" class="footer-legal-link">Terms of Service</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
-  -->
-
-  <!-- === EXPERIMENT END: experiment_with_two_types_of_footer_section === -->
 
   <script src="scripts/lazy-loading.js" defer></script>
   <script src="scripts/cookie-consent.js" defer></script>
