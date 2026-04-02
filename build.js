@@ -91,30 +91,44 @@ function buildCSS() {
 }
 
 function buildJS() {
-  const scriptFiles = [];
   const scriptsDir = BUILD_CONFIG.sourceDirs.scripts;
+  const targetDir = BUILD_CONFIG.targetDirs.scripts;
 
   try {
-    if (fs.existsSync(scriptsDir)) {
-      const files = fs.readdirSync(scriptsDir);
-      files.forEach(file => {
-        if (file.endsWith('.js')) {
-          scriptFiles.push(path.join(scriptsDir, file));
-        }
-      });
+    if (!fs.existsSync(scriptsDir)) {
+      logger.warn('No scripts directory found');
+      return true;
     }
+
+    const files = fs.readdirSync(scriptsDir).filter(file => file.endsWith('.js'));
+
+    if (files.length === 0) {
+      logger.warn('No JavaScript files found to minify');
+      return true;
+    }
+
+    logger.step('Building and minifying JavaScript files');
+
+    for (const file of files) {
+      const sourcePath = path.join(scriptsDir, file);
+      const targetPath = path.join(targetDir, file);
+      const command = `terser ${sourcePath} --compress --mangle -o ${targetPath}`;
+      
+      try {
+        execSync(command, { stdio: 'pipe' });
+        logger.info(`Minified: ${file}`);
+      } catch (error) {
+        logger.error(`Failed to minify ${file}: ${error.message}`);
+        return false;
+      }
+    }
+
+    logger.success(`Minified ${files.length} JavaScript file(s)`);
+    return true;
   } catch (error) {
-    logger.error(`Failed to read scripts directory: ${error.message}`);
+    logger.error(`Failed to build JavaScript: ${error.message}`);
     return false;
   }
-
-  if (scriptFiles.length === 0) {
-    logger.warn('No JavaScript files found to minify');
-    return true;
-  }
-
-  const command = `terser ${scriptFiles.join(' ')} --compress --mangle -o ${BUILD_CONFIG.targetDirs.scripts}/bundle.min.js`;
-  return executeCommand(command, 'Building and minifying JavaScript');
 }
 
 function copyHTMLFiles() {
