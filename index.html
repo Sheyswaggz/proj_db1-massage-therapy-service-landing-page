@@ -309,14 +309,6 @@
 
         <div class="services-grid">
           <article class="service-card" data-reveal>
-            <img
-              class="service-image"
-              data-src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80"
-              alt="Swedish massage therapy session with relaxing oils"
-              loading="lazy"
-              width="600"
-              height="400"
-            >
             <div class="service-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 2v20M2 12h20"></path>
@@ -334,14 +326,6 @@
           </article>
 
           <article class="service-card" data-reveal>
-            <img
-              class="service-image"
-              data-src="https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=600&q=80"
-              alt="Deep tissue massage targeting muscle tension"
-              loading="lazy"
-              width="600"
-              height="400"
-            >
             <div class="service-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="12" cy="12" r="10"></circle>
@@ -360,14 +344,6 @@
           </article>
 
           <article class="service-card" data-reveal>
-            <img
-              class="service-image"
-              data-src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=600&q=80"
-              alt="Hot stone massage with heated basalt stones"
-              loading="lazy"
-              width="600"
-              height="400"
-            >
             <div class="service-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
@@ -385,14 +361,6 @@
           </article>
 
           <article class="service-card" data-reveal>
-            <img
-              class="service-image"
-              data-src="https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=600&q=80"
-              alt="Prenatal massage for expecting mothers"
-              loading="lazy"
-              width="600"
-              height="400"
-            >
             <div class="service-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -411,14 +379,6 @@
           </article>
 
           <article class="service-card" data-reveal>
-            <img
-              class="service-image"
-              data-src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&q=80"
-              alt="Aromatherapy massage with essential oils"
-              loading="lazy"
-              width="600"
-              height="400"
-            >
             <div class="service-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M9 11l3 3L22 4"></path>
@@ -437,14 +397,6 @@
           </article>
 
           <article class="service-card" data-reveal>
-            <img
-              class="service-image"
-              data-src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80"
-              alt="Sports massage for athletic recovery"
-              loading="lazy"
-              width="600"
-              height="400"
-            >
             <div class="service-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
@@ -939,8 +891,8 @@
       // WARNING: Do not stop early. Peeking inflates false positive rates from 5% to 26%.
       // CLEANUP: Remove this block and keep winning variant when experiment concludes
 
-      const STATSIG_CLIENT_KEY = 'client-YOUR_CLIENT_KEY_HERE';
-      const EXPERIMENT_FLAG = 'two_types_of_hero_section';
+      const STATSIG_CLIENT_KEY = 'client-FwmeI2ZlO4Hkw1DJwAilkXuywrMAkM52pXAbAJyzHzk';
+      const EXPERIMENT_FLAG = 'two_distincts_design_types_for_hero_section';
 
       let statsigClient = null;
       let experimentVariant = 'control';
@@ -968,7 +920,7 @@
           return;
         }
 
-        if (variant === 'treatment') {
+        if (variant.toLowerCase() === 'treatment') {
           controlHero.classList.remove('active');
           treatmentHero.classList.add('active');
           console.log('[Experiment] Showing treatment variant - split-screen hero');
@@ -1012,7 +964,7 @@
       }
 
       async function initializeExperiment() {
-        if (!window.statsig || typeof window.statsig.StatsigClient !== 'function') {
+        if (!window.__STATSIG__ || typeof window.__STATSIG__.StatsigClient !== 'function') {
           console.error('[Experiment] Statsig SDK not loaded, showing control variant');
           applyHeroVariant('control');
           return;
@@ -1021,15 +973,15 @@
         try {
           const userId = getOrCreateStableUserId();
 
-          statsigClient = new window.statsig.StatsigClient(STATSIG_CLIENT_KEY, {
+          statsigClient = new window.__STATSIG__.StatsigClient(STATSIG_CLIENT_KEY, {
             userID: userId
           });
 
           await statsigClient.initializeAsync();
           console.log('[Experiment] Statsig initialized for user:', userId);
 
-          const featureGate = statsigClient.checkGate(EXPERIMENT_FLAG);
-          experimentVariant = featureGate ? 'treatment' : 'control';
+          const experiment = statsigClient.getExperiment(EXPERIMENT_FLAG);
+          experimentVariant = experiment.get('variant', 'control');
 
           console.log('[Experiment] Assigned variant:', experimentVariant);
 

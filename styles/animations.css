@@ -17,7 +17,7 @@
 
 [data-reveal].hidden {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(16px);
 }
 
 [data-reveal="fade"] {
@@ -37,7 +37,7 @@
 
 [data-reveal="slide-up"].hidden {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(20px);
 }
 
 [data-reveal="slide-left"] {
@@ -47,7 +47,7 @@
 
 [data-reveal="slide-left"].hidden {
   opacity: 0;
-  transform: translateX(-40px);
+  transform: translateX(-20px);
 }
 
 [data-reveal="slide-right"] {
@@ -57,7 +57,7 @@
 
 [data-reveal="slide-right"].hidden {
   opacity: 0;
-  transform: translateX(40px);
+  transform: translateX(20px);
 }
 
 [data-reveal="scale"] {
